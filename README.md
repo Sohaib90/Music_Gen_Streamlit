@@ -14,7 +14,7 @@
 		- [x] Play original
 		- [x] Play extracted
 	- [x] General Info about data
-		-[ ] Add charts and sources about data
+		- [ ] Add charts and sources about data
 - [ ] Add Model()
 - [ ] Add Prediction()
 - [ ] make a requirements.txt
