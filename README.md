@@ -7,9 +7,9 @@
 - [x] Add Data Analysis
 	- [x] Raw MIDI data
 	- [ ] Tokenized MIDI
-		-[x] Show Tokenized with variable length
-		-[x] Expand Tokens
-		-[ ] More options
+		- [x] Show Tokenized with variable length
+		- [x] Expand Tokens
+		- [ ] More options
 	- [x] Play MIDI
 		- [x] Play original
 		- [x] Play extracted

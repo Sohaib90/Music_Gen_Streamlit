@@ -99,3 +99,18 @@ def music(file):
 	    pg.mixer.music.fadeout(1000)
 	    pg.mixer.music.stop()
 	    raise SystemExit
+
+def make_chart(type_data = "Original Data", 
+			   labels = ['Python', 'C++', 'Ruby', 'Java', 'Haskell'],
+			   sizes=[215, 130, 245, 210, 100], 
+			   colors=['gold', 'yellowgreen', 'lightcoral', 'lightskyblue', 'green'],
+			   explode = (0.1, 0.1, 0.1, 0.1, 0.1)):
+
+	st.subheader(type_data)
+
+	# Plot
+	plt.pie(sizes, explode=explode, labels=labels, colors=colors,
+	autopct='%1.1f%%', shadow=True, startangle=140)
+
+	plt.axis('equal')
+	st.pyplot()

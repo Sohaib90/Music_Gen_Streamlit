@@ -1,8 +1,6 @@
 import streamlit as st
 
-
 def print_tokenization():
-	st.info("This section will explain how the tokenization works")
 	st.subheader("Information about Tokienization")
 	st.markdown("General overview of what we want to achieve: ")
 	st.image("./images/note_token.png", use_column_width=True)
@@ -51,3 +49,5 @@ def print_tokenization():
 	st.write("When we put these above explained methods and with some magic \
 			  (not really, just some manipulations) we get to this final tokenization result")
 	st.image("./images/last_img.png", use_column_width=True)
+	st.write("This is the same tokenization that we desired in the beginning.")
+

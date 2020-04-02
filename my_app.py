@@ -1,17 +1,17 @@
-import streamlit as st
+# import streamlit as st
 import os
 import numpy as np
 from multiprocessing import Process, Manager
 import time
+import matplotlib.pyplot as plt
 
-from musicautobot.musicautobot.numpy_encode import *
-from musicautobot.musicautobot.config import *
-from musicautobot.musicautobot.music_transformer import *
-from musicautobot.musicautobot.multitask_transformer import *
-from musicautobot.musicautobot.utils import midifile
-
-from tokenization_info import print_tokenization
+# from musicautobot.musicautobot.numpy_encode import *
+# from musicautobot.musicautobot.config import *
+# from musicautobot.musicautobot.music_transformer import *
+# from musicautobot.musicautobot.multitask_transformer import *
+# from musicautobot.musicautobot.utils import midifile
 from utils import *
+from tokenization_info import *
 
 
 def main():
@@ -43,9 +43,17 @@ def main():
 			st.write("Original (non- extracted) {} does not exist at {}".format(file, org_midi_path))
 		else:
 			# See functions
-			select_action = st.sidebar.selectbox("Select function", ["Choose", "Raw MIDI", "Tokenized MIDI", "Play MIDI"])
+			select_action = st.sidebar.selectbox("Select function", ["Choose", "Data Info", "Raw MIDI", "Tokenized MIDI", "Play MIDI"])
 			if select_action == "Choose":
-				pass
+				st.info("Data Analysis dives deeper into the Data Preprocessing and Tokenization pipeline to \
+						give a better visualization about the whole process. This section will try to summarise \
+						how the data is taken in its RAW form and change into model ready format.")
+
+			elif select_action == "Data Info":
+				st.info("This section will give insight about data gathering and analytics")
+				# info_checkbox = st.checkbox("Display information about the MIDI data")
+				make_chart()
+
 			elif select_action == "Raw MIDI":
 				st.subheader("Raw output of midi file converter")	
 				stream = music21.converter.parse(midi_file)
@@ -61,6 +69,8 @@ def main():
 					st.write("converter gave an empty stream")
 
 			elif select_action == "Tokenized MIDI":
+				st.info("This section will explain how the tokenization works")
+
 				check_tokens = st.sidebar.checkbox("Show info about Tokens")
 
 				# This section displays the information of the tokenized version
