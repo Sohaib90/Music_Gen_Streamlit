@@ -6,10 +6,10 @@
 - [ ] Make a run_app.sh
 - [x] Add Data Analysis
 	- [x] Raw MIDI data
-	- [ ] Tokenized MIDI
+	- [x] Tokenized MIDI
 		- [x] Show Tokenized with variable length
 		- [x] Expand Tokens
-		- [ ] More options
+		- [x] More options
 	- [x] Play MIDI
 		- [x] Play original
 		- [x] Play extracted
