@@ -183,9 +183,8 @@ def music_midi(midi_file, org_file):
     if play_org:
         music(org_file)
 
-def data_functions(midi_file, org_file, vocab):
+def data_functions(midi_file, org_file, vocab, select_action):
     # See functions
-    select_action = st.sidebar.selectbox("Select function", ["Choose", "Data Info", "Raw MIDI", "Tokenized MIDI", "Play MIDI"])
     if select_action == "Choose":
         print_choose()
 
@@ -213,7 +212,6 @@ def data_functions(midi_file, org_file, vocab):
         music_midi(midi_file, org_file)
 
 def data_analysis_init():
-        st.subheader("Choose a file from the sidebar and apply functions of your choice")
         vocab = MusicVocab.create()
         midi_path = Path("./streamlit_data/extracted_data")
         org_midi_path = Path("./streamlit_data/original_data")
@@ -250,3 +248,11 @@ def process_data(x, vocab):
         
         result = list(L)
         return result
+
+def model():
+	st.subheader("Under Construction..")
+	pass
+
+def predictions():
+	st.subheader("Under Construction..")
+	pass

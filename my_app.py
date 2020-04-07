@@ -1,7 +1,5 @@
 import os
 import time
-# import numpy as np
-# import matplotlib.pyplot as plt
 
 from utils.utils import *
 
@@ -12,13 +10,13 @@ def main():
 
     if app_mode == "Data Analysis":
         st.title("Data Analysis of MIDI Files")
-
+        select_action = st.sidebar.selectbox("Select function", ["Choose", "Data Info", "Raw MIDI", "Tokenized MIDI", "Play MIDI"])
         midi_file, org_file, vocab = data_analysis_init()
 
         if not os.path.exists(org_file):
         	st.write("Original (non- extracted) {} does not exist at {}".format(file, org_midi_path))
         else:
-        	data_functions(midi_file, org_file, vocab)
+        	data_functions(midi_file, org_file, vocab, select_action)
 
 
     elif app_mode == "Model Description":
@@ -30,14 +28,6 @@ def main():
     elif app_mode == "Introduction":
     	print_intro()
 
-
-def model():
-	st.subheader("Under Construction..")
-	pass
-
-def predictions():
-	st.subheader("Under Construction..")
-	pass
 
 if __name__ == "__main__":
 	main()

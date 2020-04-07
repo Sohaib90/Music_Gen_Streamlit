@@ -5,6 +5,9 @@ def print_choose():
 			give a better visualization about the whole process. This section will try to summarise \
 			how the data is taken in its RAW form and change into model ready format.")
 
+	st.markdown("To get started, please choose the approporiate\
+				action from the 'Select Function' on the sidebar")
+
 def print_tokenization():
 	st.subheader("Information about Tokienization")
 	st.markdown("General overview of what we want to achieve: ")
@@ -55,6 +58,10 @@ def print_tokenization():
 			  (not really, just some manipulations) we get to this final tokenization result")
 	st.image("./images/last_img.png", use_column_width=True)
 	st.write("This is the same tokenization that we desired in the beginning.")
+
+	st.markdown("reference : https://towardsdatascience.com/creating-a-pop-music-generator-with-the-transformer-5867511b382a", 
+				 unsafe_allow_html=True)
+
 
 def print_lakh():
 	st.markdown("The Lakh MIDI dataset is a collection of 176,581 unique MIDI files, \
