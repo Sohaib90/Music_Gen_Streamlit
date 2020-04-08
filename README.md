@@ -3,7 +3,7 @@
 
 ### TO DO:
 
-- [ ] Make a run_app.sh
+- [x] Make a run_app.sh
 - [x] Add Data Analysis
 	- [x] Raw MIDI data
 	- [x] Tokenized MIDI
@@ -17,7 +17,9 @@
 		- [x] Add charts and sources about data
 - [ ] Add Model()
 - [ ] Add Prediction()
-- [ ] make a requirements.txt
+- [x] make a requirements.txt
 - [ ] Docker and heroku deployment
+	- [x] Make container
+	- [ ] Check functionalities for each functional part of interface 
 
 To start the project, run run_app.sh

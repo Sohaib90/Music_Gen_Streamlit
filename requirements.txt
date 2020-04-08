@@ -1,0 +1,11 @@
+streamlit
+tensorflow
+mido
+torch
+music21
+pebble
+pygame
+fastai 
+fluidsynth
+midi2audio
+numpy
