@@ -5,7 +5,7 @@
 
 - [x] Make a run_app.sh
 
-- [ ] Introduction [~5 min]
+- [ ] Introduction [~5 min] (Sohaib)
 	- [ ] Team Member names/intro (WS 2019/2020, course name)
 	- [ ] Outline
 		- [ ] Introduction 
@@ -34,7 +34,7 @@
 		- [ ] Phase 2 
 			- [ ] Play sample (Lakh)
  
-- [ ] Add Model()
+- [ ] Add Model() (Abdallah)
 	- [ ] Phase 1
 		- [ ] Modeling  (Hugging Face OpenAI GPT2)
 		- [ ] Data
@@ -63,4 +63,7 @@
 		- [x] Make container
 		- [ ] Check functionalities for each functional part of interface 
 
-To start the project, run run_app.sh and once its done go to localhost:8501
+# Use Docker to run
+make sure you have docker installed 
+./run_app.sh (this will take around 7-10 mins)
+then go to :  localost:8501

@@ -120,6 +120,11 @@ def make_chart(type_data = "Data",
 
 
 def data_info_visual():
+    '''
+    data_info_visual: Makes configurations for the data sources and calls make_chart to 
+                      visualize the pie charts in the Data info section
+    '''
+
     data_set_all = ["Lakh Midi Dataset", "Others"]
     sizes = [178000, 6000]
     colors = ['gold', 'yellowgreen']
@@ -139,6 +144,10 @@ def data_info_visual():
                 explode = (0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1))
 
 def raw_midi(midi_file):
+    '''
+    raw_midi: This function call helps visualize the RAW midi parsing which music21 does
+    Input: midi_file
+    '''
     st.subheader("Raw output of midi file converter")   
     stream = music21.converter.parse(midi_file)
     if len(stream.recurse()) >= 5:
@@ -153,8 +162,14 @@ def raw_midi(midi_file):
         st.write("converter gave an empty stream")
 
 def tokenize_midi(midi_file, vocab):
+    '''
+    tokenize_midi: This function call visualize the tokenized version of the midi file
+                    selected from the dropdown menu
+    Input: midi_file (extracted)
+           MusicVocab.create() vocabulary 
+    '''
     st.subheader("Tokenized output of the midi file")
-                    # This section displays the tokens of the MIDI file
+    # This section displays the tokens of the MIDI file
     try:
         item = MusicItem.from_file(midi_file, vocab)
         slider_token_len = st.slider("choose length of tokens you want to see",0, len(item.to_text()), int(len(item.to_text())/5))
@@ -164,6 +179,11 @@ def tokenize_midi(midi_file, vocab):
         st.write("Please select another file from sidebar")
 
 def music_midi(midi_file, org_file):
+    '''
+    music_midi : this function call uses two input files, midi & original and plays 
+                them inside the browser
+    Input: extracted_file, original file
+    '''
     st.info("INFO: This section lets you listen both the original version of the MIDI we used for \
                     extraction and also the extracted version of the melody.")
 
@@ -183,53 +203,81 @@ def music_midi(midi_file, org_file):
     if play_org:
         music(org_file)
 
-def data_functions(midi_file, org_file, vocab, select_action):
+def data_functions(select_action):
+    '''
+    data_functions: uses function action from the sidebar and displays information
+        It has four major sections:
+        - Data Info: Uses Data sources and number for data collection visualizations and info
+        - Raw MIDI: shows the raw music21 output of the file selected
+        - Tokenized MIDI: shows the tokenization process and output
+        - Play MIDI: plays the original as well as extracted version of the MIDI file
+    
+    Input: data_functions takes a string input which is given as a select_action from the
+           dropdown menu
+    '''
     # See functions
     if select_action == "Choose":
         print_choose()
 
-    elif select_action == "Data Info":
-        st.info("This section will give insight about data gathering and analytics")
-        # info_checkbox = st.checkbox("Display information about the MIDI data")
-        data_info_visual()
+    else:
+        midi_file, org_file, vocab = data_analysis_init()
 
-    elif select_action == "Raw MIDI":
-        raw_midi(midi_file)
+        if select_action == "Data Info":
+            st.info("This section will give insight about data gathering and analytics")
+            # info_checkbox = st.checkbox("Display information about the MIDI data")
+            data_info_visual()
 
-    elif select_action == "Tokenized MIDI":
-        st.info("This section will explain how the tokenization works")
+        elif select_action == "Raw MIDI":
+            raw_midi(midi_file)
 
-        check_tokens = st.sidebar.checkbox("Show info about Tokens")
+        elif select_action == "Tokenized MIDI":
+            st.info("This section will explain how the tokenization works")
 
-        # This section displays the information of the tokenized version
-        if check_tokens:
-            print_tokenization()
+            check_tokens = st.sidebar.checkbox("Show info about Tokens")
 
-        else:
-            tokenize_midi(midi_file, vocab)
+            # This section displays the information of the tokenized version
+            if check_tokens:
+                print_tokenization()
 
-    elif select_action == "Play MIDI":
-        music_midi(midi_file, org_file)
+            else:
+                tokenize_midi(midi_file, vocab)
+
+        elif select_action == "Play MIDI":
+            music_midi(midi_file, org_file)
 
 def data_analysis_init():
-        vocab = MusicVocab.create()
-        midi_path = Path("./streamlit_data/extracted_data")
-        org_midi_path = Path("./streamlit_data/original_data")
-        midi_files = get_files(midi_path, '.mid', recurse=True)
+    '''
+    data_analysis_init(): this function call gets the data, processess it, and then makes the 
+                          array for the dropdown menu which is st.sidebar.selectbox
+    
+    Input: no input
+    Output: returns selected midi_file and corresponding output file                
+    '''
+    vocab = MusicVocab.create()
+    midi_path = Path("./streamlit_data/extracted_data")
+    org_midi_path = Path("./streamlit_data/original_data")
+    midi_files = get_files(midi_path, '.mid', recurse=True)
 
-        # process extracted files
-        filter_f = process_data(midi_files, vocab)
-        file_select = [os.path.basename(x) for x in filter_f]
-        file = st.sidebar.selectbox("Choose file", file_select)
-        midi_file = str(midi_path) + "/" + file
+    # process extracted files
+    filter_f = process_data(midi_files, vocab)
+    file_select = [os.path.basename(x) for x in filter_f]
+    file = st.sidebar.selectbox("Choose file", file_select)
+    midi_file = str(midi_path) + "/" + file
 
-        # process original files
-        org_file = str(org_midi_path) + "/" + file
+    # process original files
+    org_file = str(org_midi_path) + "/" + file
 
-        return midi_file, org_file, vocab
+    return midi_file, org_file, vocab
 
 @st.cache()
 def process_data(x, vocab):
+    '''
+    process_data: This function call processs all the data and stores it in the cache 
+                of the broswer
+    Input: x (list of all the files)
+            vocab: MusicVocab.create()
+    Output: processed result (list)
+    '''
     result = []
     with Manager() as manager:
         L = manager.list()  # <-- can be shared between processes.
