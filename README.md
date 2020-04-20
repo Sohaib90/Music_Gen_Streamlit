@@ -34,8 +34,8 @@
 		- [ ] Phase 2 
 			- [ ] Play sample (Lakh)
  
-- [ ] Add Model() (Abdallah)
-	- [ ] Phase 1
+- [x] Add Model() (Abdallah)
+	- [x] Phase 1
 		- [ ] Modeling  (Hugging Face OpenAI GPT2)
 		- [ ] Data
 			- [ ] Only Piano (extracction process)
