@@ -6,7 +6,7 @@ from utils.utils import *
 def main():
     st.sidebar.title("What to do:")
     app_mode = st.sidebar.radio("Go to", ["Introduction", "Data Analysis",
-                                          "Model Description", "Predictions"])
+                                          "Phase |","Phase ||", "Predictions"])
 
     if app_mode == "Data Analysis":
         st.title("Data Analysis of MIDI Files")
@@ -14,9 +14,8 @@ def main():
                                                                 "Raw MIDI", "Tokenized MIDI", "Play MIDI"])
         data_functions(select_action)
 
-    elif app_mode == "Model Description":
-    	st.title("Model Architecture")
-    	model()
+    elif app_mode == "Phase |":
+    	print_phase1()
     elif app_mode == "Predictions":
     	st.title("Music Generation Predictions")
     	predictions()

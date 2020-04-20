@@ -298,7 +298,7 @@ def process_data(x, vocab):
         return result
 
 def model():
-	st.subheader("Under Construction..")
+	st.subheader("Plan")
 	pass
 
 def predictions():

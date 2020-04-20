@@ -80,3 +80,65 @@ def print_intro():
 	st.text("Abdallah Bashir")
 	st.text("Shivaani Kumar")
 	st.text("Sohaib Arshid")
+
+def print_phase1():
+	st.title("Huggingface Transformers")
+	st.subheader("Language Modeling")
+	st.image("./images/phase1.jpg", use_column_width=True)
+	st.subheader("\n \n  \n \n \n \n \n")
+	st.subheader("\n \n  \n \n \n \n \n")
+	st.subheader("\n \n  \n \n \n \n \n")
+	st.subheader("\n \n  \n \n \n \n \n")
+	st.subheader("-----------------------------------------------------------------------------")
+
+	st.subheader("Our Plan")
+	st.image("./images/phase1_msuic.png", use_column_width=True)
+
+	st.subheader("\n \n  \n \n \n \n \n")
+	st.subheader("\n \n  \n \n \n \n \n")
+	st.subheader("\n \n  \n \n \n \n \n")
+	st.subheader("\n \n  \n \n \n \n \n")
+	st.subheader("-----------------------------------------------------------------------------")
+
+	st.subheader("The Model")	
+	st.image("./images/openAI-GPT-2-3.png", use_column_width=True)
+	st.markdown("""
+	* Decoder based transfoermer. \n
+	* Auto-regressive in nature
+	""")
+	
+	st.markdown("## Reasons for going with GPT2")
+	st.markdown("1.	Text Generation Capipilities")
+	st.image("./images/tr.png", use_column_width=True)
+	st.markdown("2. replicate the MuseNet Open AI approach")
+
+	st.subheader("\n \n  \n \n \n \n \n")
+	st.subheader("\n \n  \n \n \n \n \n")
+	st.subheader("\n \n  \n \n \n \n \n")
+	st.subheader("\n \n  \n \n \n \n \n")
+	st.subheader("\n \n  \n \n \n \n \n")
+	st.subheader("\n \n  \n \n \n \n \n")
+	st.subheader("\n \n  \n \n \n \n \n")
+	st.subheader("\n \n  \n \n \n \n \n")
+	st.subheader("-----------------------------------------------------------------------------")
+
+	st.subheader("Used Data")
+	st.markdown("We used only Piano data after running the extraction due to")
+	st.markdown("* Availability of data")
+	st.markdown("* Our search was not done yet")
+
+	st.subheader("\n \n  \n \n \n \n \n")
+	st.subheader("\n \n  \n \n \n \n \n")
+	st.subheader("\n \n  \n \n \n \n \n")
+	st.subheader("\n \n  \n \n \n \n \n")
+	st.subheader("\n \n  \n \n \n \n \n")
+	st.subheader("\n \n  \n \n \n \n \n")
+	st.subheader("\n \n  \n \n \n \n \n")
+	st.subheader("\n \n  \n \n \n \n \n")
+	st.subheader("-----------------------------------------------------------------------------")
+
+	st.subheader("Problems, why did we shift to Phase ||")
+	st.image("./images/phase1_msuic_problems.png", use_column_width=True)
+	st.markdown("""
+	* Generating features and vicabulary out of step 1
+	""")
