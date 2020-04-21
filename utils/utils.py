@@ -307,7 +307,7 @@ def intro():
         print_outline()
 
 def model():
-	st.subheader("Under Construction..")
+	st.subheader("Plan")
 	pass
 
 def predictions():

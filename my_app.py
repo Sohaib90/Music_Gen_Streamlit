@@ -13,9 +13,14 @@ def main():
         select_action = st.sidebar.selectbox("Select function", ["Choose", "Data Info", 
                                                                 "Raw MIDI", "Tokenized MIDI", "Play MIDI"])
         data_functions(select_action)
+
     elif app_mode == "Model Description":
-    	st.title("Model Architecture")
-    	model()
+        phase = st.sidebar.selectbox("Choose Phase", ["Phase I", "Phase II"])
+        if phase == "Phase I":
+            st.title("Phase I")
+            print_phase1()
+        else:
+            print_phase2()
     elif app_mode == "Predictions":
     	st.title("Music Generation Predictions")
     	predictions()
