@@ -16,6 +16,8 @@ def main():
 
     elif app_mode == "Phase |":
     	print_phase1()
+    elif app_mode == "Phase ||":
+    	print_phase2()
     elif app_mode == "Predictions":
     	st.title("Music Generation Predictions")
     	predictions()
