@@ -13,7 +13,6 @@ def main():
         select_action = st.sidebar.selectbox("Select function", ["Choose", "Data Info", 
                                                                 "Raw MIDI", "Tokenized MIDI", "Play MIDI"])
         data_functions(select_action)
-
     elif app_mode == "Model Description":
     	st.title("Model Architecture")
     	model()
@@ -21,8 +20,7 @@ def main():
     	st.title("Music Generation Predictions")
     	predictions()
     elif app_mode == "Introduction":
-    	print_intro()
+        print_intro()
+        intro()
 
-
-if __name__ == "__main__":
-	main()
+main()

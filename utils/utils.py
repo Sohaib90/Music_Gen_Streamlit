@@ -219,15 +219,15 @@ def data_functions(select_action):
     if select_action == "Choose":
         print_choose()
 
+    elif select_action == "Data Info":
+        st.info("This section will give insight about data gathering and analytics")
+        # info_checkbox = st.checkbox("Display information about the MIDI data")
+        data_info_visual()
+
     else:
         midi_file, org_file, vocab = data_analysis_init()
 
-        if select_action == "Data Info":
-            st.info("This section will give insight about data gathering and analytics")
-            # info_checkbox = st.checkbox("Display information about the MIDI data")
-            data_info_visual()
-
-        elif select_action == "Raw MIDI":
+        if select_action == "Raw MIDI":
             raw_midi(midi_file)
 
         elif select_action == "Tokenized MIDI":
@@ -296,6 +296,15 @@ def process_data(x, vocab):
         
         result = list(L)
         return result
+
+def intro():
+    select = st.sidebar.selectbox("Options", ["GUI Info", "Outline", "Literature Review"])
+    if select == "GUI Info":
+        print_gui_info()
+    elif select == "Literature Review":
+        print_lit_review()
+    else:
+        print_outline()
 
 def model():
 	st.subheader("Under Construction..")
