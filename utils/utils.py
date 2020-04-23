@@ -17,6 +17,12 @@ from utils.print_info import *
 
 threadLock = threading.Lock()
 
+
+def play_updated(midi_file):
+    audio_file = open(midi_file, "rb")
+    audio_bytes = audio_file.read()
+    st.audio(audio_bytes, format="audio/mp3")
+
 def append_to_list(L, file_name, vocab):
 
     for f in file_name:
@@ -125,10 +131,10 @@ def data_info_visual():
                       visualize the pie charts in the Data info section
     '''
 
-    data_set_all = ["Lakh Midi Dataset", "Others"]
-    sizes = [178000, 6000]
-    colors = ['gold', 'yellowgreen']
-    explode = (0.1, 0.1)
+    data_set_all = ["Lakh Midi Dataset", "Reddit Pop Dataset", "Others"]
+    sizes = [178000, 64000, 6000]
+    colors = ['gold', 'lightblue', 'yellowgreen']
+    explode = (0.0, 0.0, 0.0)
     make_chart(type_data= "Total Data", labels=data_set_all, 
                 sizes=sizes, colors=colors, explode=explode)
     print_lakh()
@@ -190,18 +196,14 @@ def music_midi(midi_file, org_file):
     st.subheader("Play MIDI")
     st.text("Choose any file from the sidebar to listen to a sample")
 
-    st.markdown("Click the button below to play original MIDI")
-    play_org = st.button("Play Original")
+    st.subheader("Play Original MIDI")
+    play_updated(org_file)
 
     st.write("\n")
-    st.markdown("Click the button below to play Piano extracted MIDI")
-    play_file = st.button("Play Extracted")
+    st.subheader("Play Piano extracted MIDI")
+    play_updated(midi_file)
 
-    if play_file:
-        music(midi_file)
 
-    if play_org:
-        music(org_file)
 
 def data_functions(select_action):
     '''
@@ -256,13 +258,13 @@ def data_analysis_init():
     vocab = MusicVocab.create()
     midi_path = Path("./streamlit_data/extracted_data")
     org_midi_path = Path("./streamlit_data/original_data")
-    midi_files = get_files(midi_path, '.mid', recurse=True)
+    midi_files = get_files(midi_path, '.mp3', recurse=True)
 
     # process extracted files
-    filter_f = process_data(midi_files, vocab)
-    file_select = [os.path.basename(x) for x in filter_f]
+    # filter_f = process_data(midi_files, vocab)
+    file_select = [os.path.basename(x) for x in midi_files]
     file = st.sidebar.selectbox("Choose file", file_select)
-    midi_file = str(midi_path) + "/" + file
+    midi_file = midi_path/file
 
     # process original files
     org_file = str(org_midi_path) + "/" + file
@@ -305,10 +307,6 @@ def intro():
         print_lit_review()
     else:
         print_outline()
-
-def model():
-	st.subheader("Plan")
-	pass
 
 def predictions():
 	st.subheader("Under Construction..")

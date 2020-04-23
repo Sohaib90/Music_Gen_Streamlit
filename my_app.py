@@ -20,6 +20,7 @@ def main():
             st.title("Phase I")
             print_phase1()
         else:
+            st.title("Phase II")
             print_phase2()
     elif app_mode == "Predictions":
     	st.title("Music Generation Predictions")
@@ -28,4 +29,5 @@ def main():
         print_intro()
         intro()
 
-main()
+if __name__ == "__main__":
+    main()

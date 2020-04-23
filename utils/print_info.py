@@ -144,9 +144,9 @@ def print_gui_info():
 	st.markdown("This section dives deeper into the Data Processing pipeline and tries to \
 				take a visual/audio eplanatory approach. Subsections include ")
 	st.markdown("1. Data Info")
-	st.markdown("1. Raw MIDI")
-	st.markdown("1. Tokenized MIDI")
-	st.markdown("1. Play MIDI")
+	st.markdown("2. Raw MIDI")
+	st.markdown("3. Tokenized MIDI")
+	st.markdown("4. Play MIDI")
 
 	st.subheader("Data Info")
 	st.markdown("Shows the user visual representation of the data collected and the sources used \
@@ -170,7 +170,50 @@ def print_gui_info():
 	st.title("Section 4: Predictions")
 
 def print_lit_review():
-	pass
+	st.title("Lietrature Review")
+	st.markdown("This section will go through the literature review our group did for the project. It will also discuss \
+			the state of the art technologies that have already been used for music generation using AI.")
+	
+	# Magenta
+	st.markdown("## Magenta (Google Brain)")
+	st.markdown("Prior Work:")
+	st.markdown("* Vanilla approaches include training a RNN (LSTM) model to predict the next note in a musical sequence (e.g. Eck and Schmidhuber 2002).")
+	st.markdown("* Similar to character RNN, these Note RNNs were used to generate melodies by initializing them with a short sequence, and then obtaining next notes from the model by repeatedly sampling from the model’s output")
+	st.markdown("Problems:")
+	st.markdown("* Excessively repeating tokens (less creativity)")
+	st.markdown("* Producing sequences that lack a consistent theme or structure (straying from music rules and structure)")
+	st.markdown("* Wandering and random sequences (randomness)")
+	st.markdown("Research Question:)")
+	st.markdown("* Given music has relatively well-defined structural rules, can a simple Note RNN maintain that structural integrity?")	
+	st.markdown("Proposition")
+	st.markdown("* Given trained Note RNN, goal is to teach it concepts about music theory, while maintaining the information about typical melodies originally learned from data.")
+	st.markdown("RL Tuner Design:")
+	st.markdown("* Three networks: [The Q network, The Target-Q network] (Deep Q-Learning) and a Reward RNN")
+	st.markdown("* Q-network, Target Q-network: recurrent LSTM model, architecture same as Note RNN")
+	st.markdown("* Reward RNN: used to supply part of the reward value used to train model. Held fixed during training.")
+	st.image("./images/magenta.png", use_column_width=True)
+
+
+	# MuseGAN
+	st.markdown("## MuseGAN")
+
+	st.markdown("High Level Idea:")
+	st.markdown("* As the name suggests, this strategy uses Generative Adversarial Networks (GANs)")
+	st.markdown("* Three models for symbolic multi-track music generation")
+	st.markdown("* The jamming model, the composer model and the hybrid model")
+	st.markdown("* The paper shows that the models can generate coherent music of four bars right from scratch")
+	st.markdown("Challenges:")
+	st.markdown("* Have an account for the hierarchical, temporal, and the structuralpatterns of music")
+	st.markdown("* Musical notes are often grouped into chords, arpeggios, or melodies, so chronologically ordering of notes is not suitable")
+	st.markdown("Goal:")
+	st.markdown("* Generate multi-track polyphonic music with harmonic and rhythmic structure, multitrack interdependency, temporal structure")
+	st.markdown("Data Representation:")
+	st.markdown("* They use multiple-track piano-roll representation")
+	st.markdown("* The piano-roll dataset used is derived from the Lakh MIDI dataset (LMD) (Raffel 2016),4 a large collection of 176,581 unique MIDI files. The MIDI files are converted to multi-track piano-roll.")
+
+
+
+
 
 def print_phase1():
 	st.title("Huggingface Transformers")
@@ -207,8 +250,42 @@ def print_phase1():
 	st.subheader("Problems, why did we shift to Phase ||")
 	st.image("./images/phase1_msuic_problems.png", use_column_width=True)
 	st.markdown("""
-	* Generating features and vocabulary out of step 1
+	* Generating features and vicabulary out of step 1
+	* Training the model 
 	""")
-
+	
 def print_phase2():
-	pass
+	st.title("Switching to FastAI")
+	st.markdown("# Transformer-XL")
+	st.markdown("## Why switching to Transformer-XL")
+	st.markdown("* Availability of open source implementatins of GPT2")
+	st.markdown("* Similar Perfomance to GPT2")
+	st.subheader("-----------------------------------------------------------------------------")
+
+	st.markdown("## Main Takeaways")
+	st.markdown("* Transformer-XL is a transformer based archicture")
+	st.markdown("* Transformer Memory - Previous tokens are stored in memory to evaluate only on the last predicted token. ")
+	#Transformer Memory enables super fast inference. Instead of having to re-evaluate the whole sequence on every prediction,
+	# you only need to evaluate on the last predicted token. Previous tokens are already stored in memory
+	st.markdown("* Relative position - vanilla transformers use absolute position only.")
+	st.subheader("-----------------------------------------------------------------------------")
+
+	st.markdown("# Changes on Data")
+	st.markdown("## Train two models.")
+	st.markdown("* Lakh classic music model")
+	st.markdown("* Reddit Pop music model")	
+
+	st.markdown("## Preprocessing Extra Steps")
+	st.markdown("* Data Augmentation")	
+	st.markdown("* Positional Beat Encoding - extra Metadata for musical timing")
+
+	st.subheader("-----------------------------------------------------------------------------")
+
+	st.markdown("## Problems during Training.")
+	#i.handling the data
+	st.image("./images/nested-l.png", use_column_width=True)
+	st.subheader("-----------------------------------------------------------------------------")
+
+	st.markdown("## Training time.")
+	st.markdown("* lakh - 4 epochs - 8 days")
+	st.markdown("* Reddit Pop - 6 epochs - 4 days")
