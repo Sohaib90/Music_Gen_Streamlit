@@ -6,7 +6,7 @@ FROM ubuntu:18.04
 RUN apt-get update &&\
     apt-get install python3.7 -y &&\
     apt-get install python3-pip -y &&\
-    apt-get install graphviz -y &&\
+    # apt-get install graphviz -y &&\
     apt-get install -y timidity &&\
     apt-get install -y freepats &&\
     apt-get install -y libsdl1.2-dev libsdl-image1.2-dev libsdl-mixer1.2-dev libsdl-ttf2.0-dev &&\
