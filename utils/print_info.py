@@ -11,37 +11,11 @@ def print_choose():
 
 def print_tokenization():
 	st.subheader("Information about Tokienization")
-	st.markdown("General overview of what we want to achieve: ")
+	st.markdown("General overview of what tokenization achieves: ")
 	st.image("./images/note_token.png", use_column_width=True)
 
 	st.subheader("Steps to achieve tokenization")
-	st.markdown("As we already have established we will be using MIDI files for our problem. \
-				We use MIDI because it’s one of the most popular digital music formats and \
-				there’s a ton of these files on the internet. \
-				Raw MIDI is represented in bytes. Even when converted to text, \
-				it’s not very human readable.\
-				Instead of doing that, we will be showing MIDI as for visualizations:")
-	st.image("./images/note_pic.png", use_column_width=True)
-
-	st.markdown("Turns out, there’s a couple of gotchas to keep in mind when encoding music files to tokens.\
-	 			For text, it’s a pretty straight forward conversion.\
-	 			Here’s how you would encode text to a sequence of tokens:")
-	st.code("Vocabulary:{'a': 1, 'is': 2, 'language': 3, 'like': 4,'model': 5,'music': 6}")
-	st.code("Text: “a music model is like a language model”")
-	st.code("Tokenized: [1,6,5,2,4,13,5]")
-
-	st.markdown("It’s a straight one-to-one mapping — word to token. \
-				You can do other types of encoding like splitting contractions or byte-pair encoding,\
-				but it’s still a sequential conversion.\
-				Music however, is best represented in 2D as seen in the above figure")
-	st.write("\n")
-	st.markdown("Here’s another way of looking at the MIDI using piano roll representation")
-	st.image("./images/piano_roll.png",use_column_width=True)
-	st.markdown("From here we notice that: ")
-	st.markdown("1. A single music note is a collection of values (pitch+duration)")
-	st.markdown("2. Multiple notes can be played at a single point in time (polyphony)")
-	st.markdown("The objective is to our model using this 2D representation of music. So our tokenization\
-				 should be able to handle this 2D representation easily")
+	st.markdown("Musicautobot uses the following strategy to tokenize the music files.")
 
 	st.subheader("Notes— One to Many")
 	st.write("A single music note represents a collection of values: \n - Pitch (C, C#, … A#, B) \n - Duration (quarter note, whole note)")
@@ -49,20 +23,16 @@ def print_tokenization():
 	st.image("./images/one_to_many.png", use_column_width=True)
 
 	st.subheader("Polyphony — Many to One")
-	st.write("Another music model called “bachbot” has a clever solution to this. \
-			  Play notes sequentially if it’s separated by a special “SEP” token. \
+	st.write("Uses the strategy of \
+			  playing notes sequentially if it’s separated by a special “SEP” token. \
 			  If not, play all the notes at once.")
 	st.image("./images/bachbot.png", use_column_width=True)
 
 	st.subheader("Putting it all together")
-	st.write("When we put these above explained methods and with some magic \
-			  (not really, just some manipulations) we get to this final tokenization result")
 	st.image("./images/last_img.png", use_column_width=True)
-	st.write("This is the same tokenization that we desired in the beginning.")
 
 	st.markdown("reference : https://towardsdatascience.com/creating-a-pop-music-generator-with-the-transformer-5867511b382a", 
 				 unsafe_allow_html=True)
-
 
 def print_lakh():
 	st.markdown("The Lakh MIDI dataset is a collection of 176,581 unique MIDI files, \
@@ -165,12 +135,18 @@ def print_gui_info():
 	
 	# Model Description
 	st.title("Section 3: Model Description")
+	st.markdown("This section will briefly describe about the models and the phases of our training pipeline using \
+				different architectures and methodologies, which is divided into Phase I and Phase II.")
 
 	# Prediction
 	st.title("Section 4: Predictions")
+	st.markdown("Predictions will deal with the output from our trained models. It will have an original file, clipped\
+				predicted file and the trimmed + predicted file, which the user can play and visualize.")
+	st.markdown("There are two trained models, one is the Reddit Pop Model, which is trained on pop music, and the second is \
+				the Lakh Midi Dataset model, which is trained on lakh dataset of classical songs.")
 
 def print_lit_review():
-	st.title("Lietrature Review")
+	st.title("Literature Review")
 	st.markdown("This section will go through the literature review our group did for the project. It will also discuss \
 			the state of the art technologies that have already been used for music generation using AI.")
 	
@@ -210,10 +186,41 @@ def print_lit_review():
 	st.markdown("Data Representation:")
 	st.markdown("* They use multiple-track piano-roll representation")
 	st.markdown("* The piano-roll dataset used is derived from the Lakh MIDI dataset (LMD) (Raffel 2016),4 a large collection of 176,581 unique MIDI files. The MIDI files are converted to multi-track piano-roll.")
+	st.image("./images/MuseGAN.png", use_column_width=True)
 
+	# Musenet (Open AI)
+	st.markdown("## Musenet (Open AI)")
+	st.markdown("The model:")
+	st.markdown("* A transformer based model that can generate 4-minute musical compositions with 10 different instruments, and can combine styles from country to Mozart to the Beatles.")
 
+	st.markdown("Approach:")
+	st.markdown("* Uses the same general-purpose unsupervised technology as GPT-2, a large-scale transformer model trained to predict the next token in a sequence, whether audio or text.")
+	st.markdown("Open AI GPT2:")
+	st.markdown("* GPT-2 (2nd version of Open AI GPT) is a large transformer-based language model with 1.5 billion parameters, \
+				trained on a dataset of 8 million web pages. GPT-2 is trained with a simple objective: predict the next word, \
+				given all of the previous words within some text.")
+	st.markdown("Limitations:")
+	st.markdown("* Computation time and cost, considering the number of parameters mentioned above.")
+	st.markdown("* The instruments you ask for are strong suggestions, not requirements. MuseNet generates each note by calculating the probabilities across all possible notes and instruments.")
+	st.markdown("* The model shifts to make your instrument choices more likely, but there’s always a chance it will choose something else.")
+	st.markdown("* MuseNet has a more difficult time with odd pairings of styles and instruments (such as Chopin with bass and drums). Generations will be more natural if you pick instruments closest to the composer or band’s usual style.")
 
-
+	# WaveNet
+	st.markdown("## WaveNet")
+	st.markdown("What it does:")
+	st.markdown("* WaveNet is a CNN based autoregressive  and fully probabilistic generative model that directly models the raw waveform of \
+				the audio signal(i.e music or human speech), one sample at a time.")
+	st.markdown("* It uses Gated PixelCNN architecture, dilated convolutions and causal convolutions.")
+	st.markdown("Original purpose:")
+	st.markdown("* To create human like speech better than the Text To Speech models, to make the output more close to real time human speech.")
+	st.markdown("Implementation:")
+	st.markdown("* The model is a CNN, where the convolutional layers have multiple dilatation factors and predictions only depend on \
+				previous timesteps. i.e predictions only depends upto ‘t’ and not ‘t+1,t+2,...t+n’")
+	st.markdown("* The Residual and Skip connections help the raw audio directly impact the output.")
+	st.markdown("Results:")
+	st.markdown("* In context of the speech generation, at each step during sampling a value is drawn from the probability distribution computed by the network and is \
+				fed back into the input and a new prediction for the next step is made , for realistic-sounding audio.")
+	st.markdown("* Further, the model was also used on piano dataset and new samples were generated opening possibilities for music generation.")
 
 def print_phase1():
 	st.title("Huggingface Transformers")

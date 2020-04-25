@@ -22,9 +22,17 @@ def main():
         else:
             st.title("Phase II")
             print_phase2()
+
     elif app_mode == "Predictions":
-    	st.title("Music Generation Predictions")
-    	predictions()
+        st.title("Music Generation Predictions")
+        st.info("This section will help you listen and visualize the predictions/inferences made by the \
+                trained model.")
+        which_play = st.sidebar.selectbox("Choose Music Model", ["Reddit Pop Model", "Lakh Midi Model"])
+        if which_play == "Lakh Midi Model":
+    	    play_pred("pred_lmd")
+        else:
+            play_pred("pred_reddit")
+
     elif app_mode == "Introduction":
         print_intro()
         intro()

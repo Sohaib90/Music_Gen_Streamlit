@@ -18,8 +18,8 @@ from utils.print_info import *
 threadLock = threading.Lock()
 
 
-def play_updated(midi_file):
-    audio_file = open(midi_file, "rb")
+def play_updated(file):
+    audio_file = open(file, "rb")
     audio_bytes = audio_file.read()
     st.audio(audio_bytes, format="audio/mp3")
 
@@ -184,7 +184,7 @@ def tokenize_midi(midi_file, vocab):
         st.write("Exception raised during handling {} ".format(file))
         st.write("Please select another file from sidebar")
 
-def music_midi(midi_file, org_file):
+def music_midi(mp3_ex, org_file):
     '''
     music_midi : this function call uses two input files, midi & original and plays 
                 them inside the browser
@@ -201,8 +201,7 @@ def music_midi(midi_file, org_file):
 
     st.write("\n")
     st.subheader("Play Piano extracted MIDI")
-    play_updated(midi_file)
-
+    play_updated(mp3_ex)
 
 
 def data_functions(select_action):
@@ -227,7 +226,7 @@ def data_functions(select_action):
         data_info_visual()
 
     else:
-        midi_file, org_file, vocab = data_analysis_init()
+        midi_file, org_file, mp3_ex, vocab = data_analysis_init()
 
         if select_action == "Raw MIDI":
             raw_midi(midi_file)
@@ -245,7 +244,7 @@ def data_functions(select_action):
                 tokenize_midi(midi_file, vocab)
 
         elif select_action == "Play MIDI":
-            music_midi(midi_file, org_file)
+            music_midi(mp3_ex, org_file)
 
 def data_analysis_init():
     '''
@@ -256,20 +255,26 @@ def data_analysis_init():
     Output: returns selected midi_file and corresponding output file                
     '''
     vocab = MusicVocab.create()
-    midi_path = Path("./streamlit_data/extracted_data")
+    mp3_path = Path("./streamlit_data/extracted_data")
     org_midi_path = Path("./streamlit_data/original_data")
-    midi_files = get_files(midi_path, '.mp3', recurse=True)
+    midi_path = Path("./streamlit_data/midi_files")
+    mp3_files = get_files(mp3_path, '.mp3', recurse=True)
+    midi_files = get_files(midi_path, '.mid', recurse=True)
 
     # process extracted files
     # filter_f = process_data(midi_files, vocab)
-    file_select = [os.path.basename(x) for x in midi_files]
+    file_select = [os.path.basename(x) for x in mp3_files]
     file = st.sidebar.selectbox("Choose file", file_select)
-    midi_file = midi_path/file
+    mp3_file = mp3_path/file
 
     # process original files
     org_file = str(org_midi_path) + "/" + file
 
-    return midi_file, org_file, vocab
+    #midi_file
+    mid_file = file[:-4] + '.mid'
+    midi_file = midi_path/mid_file
+
+    return midi_file, org_file, mp3_file, vocab
 
 @st.cache()
 def process_data(x, vocab):
@@ -298,6 +303,88 @@ def process_data(x, vocab):
         
         result = list(L)
         return result
+
+
+def load_pred_data(name="pred_lmd"):
+    
+    trim_pred_dir = Path("./streamlit_data")/name/Path("full")
+    input_file_org = Path("./streamlit_data")/name/Path("input/original")
+    input_file_trim = Path("./streamlit_data")/name/Path("input/trimmed")
+    pred_file = Path("./streamlit_data")/name/Path("predicted")
+
+    trim_pred_files = get_files(trim_pred_dir/"midi", '.mp3')
+    input_org_files = get_files(input_file_org/"midi", '.mp3')
+    input_trimo_files = get_files(input_file_trim/"midi", '.mp3')
+    pred_files = get_files(pred_file/"midi", '.mp3')
+
+    file_select = [os.path.basename(x) for x in trim_pred_files]
+    file = st.sidebar.selectbox("Choose file", file_select)
+
+    # music files
+    trim_pred_disp = trim_pred_dir/"midi"/file
+    input_org_disp = input_file_org/"midi"/file
+    input_trim_disp = input_file_trim/"midi"/file
+    pred_disp = pred_file/"midi"/file
+
+    # notes
+    filename = file.replace(".mp3", "")
+    filename = filename + ".mid-1" + ".png"
+
+    trim_pred_note = trim_pred_dir/"notes"/filename
+    input_org_note = input_file_org/"notes"/filename
+    input_trim_note = input_file_trim/"notes"/filename
+    pred_note = pred_file/"notes"/filename
+
+    return [input_org_disp, input_trim_disp, pred_disp, trim_pred_disp] , [input_org_note, input_trim_note, pred_note, trim_pred_note]
+
+
+def play_pred(name="pred_lmd"):
+    st.subheader("Users have four files they can listen to.")
+    st.markdown("* **Original input file** : This file is the original full length music file in the \
+                test dataset.")
+    st.markdown("* **Trimmed input file** : This file is the trimmed/clipped part of the original file \
+                which is used by the inference engine to predict the next notes.")
+    st.markdown("* ** The prediction ** : This is the file that is the prediction produced by the \
+                inference engine.")
+    st.markdown("* ** Trimmed Input + prediction file ** : Final file is the augmentation of the clipped \
+                file and the prediction of the model.")
+
+    music_files, notes = load_pred_data(name)
+
+    select_action = st.sidebar.selectbox("Action", ["Play Predictions", "Note charts"])
+
+    if select_action == "Play Predictions":
+        st.subheader("Choose any file from the sidebar to listen to a sample")
+
+        st.subheader("Play Original File")
+        play_updated(music_files[0])
+        
+        st.subheader("Play Trimmed input")
+        play_updated(music_files[1])
+        
+        st.subheader("Play Prediction")
+        play_updated(music_files[2])
+
+        st.subheader("Play Trimmed + Prediction")
+        play_updated(music_files[3])
+
+    else:
+        st.subheader("Choose any file from the sidebar to see note charts comparison")
+
+        select_chart = st.radio("Choose note chart to show", ["Original", "Trimmed", "Prediction", "Trimmed + Prediction"])
+
+        if select_chart == "Original":
+            st.subheader("Original File")
+            st.image(str(notes[0]), use_column_width=True)
+        elif select_chart == "Trimmed":
+            st.subheader("Trimmed input")
+            st.image(str(notes[1]), use_column_width=True)
+        elif select_chart == "Prediction":
+            st.subheader("Prediction")
+            st.image(str(notes[2]), use_column_width=True)
+        elif select_chart == "Trimmed + Prediction":
+            st.subheader("Trimmed + Prediction")
+            st.image(str(notes[3]), use_column_width=True)
 
 def intro():
     select = st.sidebar.selectbox("Options", ["GUI Info", "Outline", "Literature Review"])
