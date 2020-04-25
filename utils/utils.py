@@ -7,11 +7,7 @@ import numpy as np
 # import pygame as pg
 import streamlit as st
 
-from musicautobot.musicautobot.numpy_encode import *
-from musicautobot.musicautobot.config import *
-from musicautobot.musicautobot.music_transformer import *
-from musicautobot.musicautobot.multitask_transformer import *
-from musicautobot.musicautobot.utils import midifile
+from musicautobot.musicautobot.music_transformer.transform import *
 
 from utils.print_info import *
 

@@ -1,7 +1,7 @@
 from ..numpy_encode import *
 import numpy as np
 from enum import Enum
-import torch
+# import torch
 from ..vocab import *
 from functools import partial
 
