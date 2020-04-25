@@ -4,7 +4,7 @@ import threading
 from multiprocessing import Process, Manager
 
 import numpy as np
-import pygame as pg
+# import pygame as pg
 import streamlit as st
 
 from musicautobot.musicautobot.numpy_encode import *
