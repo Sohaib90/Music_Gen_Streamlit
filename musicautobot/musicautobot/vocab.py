@@ -1,4 +1,4 @@
-# from fastai.basics import *
+from fastai.basics import *
 from .numpy_encode import *
 from .music_transformer import transform
 
