@@ -56,9 +56,9 @@
 		- [x] Note sheet predicted
 	- [?] Metrics
 
-- [ ] Technical Service/Deployment Pipeline (Code: Sohaib)
+- [x] Technical Service/Deployment Pipeline (Code: Sohaib)
 	- [x] make a requirements.txt
-	- [ ] Docker and heroku deployment
+	- [x] Docker and heroku deployment
 		- [x] Make container
 		- [x] Check functionalities for each functional part of interface 
 
@@ -66,3 +66,6 @@
 make sure you have docker installed 
 ./run_app.sh (this will take around 7-10 mins)
 then go to :  localost:8501
+
+# RUN DEMO
+http://neuralpiano.herokuapp.com/
