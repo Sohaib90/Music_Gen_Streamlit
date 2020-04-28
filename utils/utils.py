@@ -230,14 +230,7 @@ def data_functions(select_action):
         elif select_action == "Tokenized MIDI":
             st.info("This section will explain how the tokenization works")
 
-            check_tokens = st.sidebar.checkbox("Show info about Tokens")
-
-            # This section displays the information of the tokenized version
-            if check_tokens:
-                print_tokenization()
-
-            else:
-                tokenize_midi(midi_file, vocab)
+            tokenize_midi(midi_file, vocab)
 
         elif select_action == "Play MIDI":
             music_midi(mp3_ex, org_file)
