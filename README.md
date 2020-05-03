@@ -68,4 +68,4 @@ make sure you have docker installed
 then go to :  localost:8501
 
 # RUN DEMO
-http://neuralpiano.herokuapp.com/
+https://neuralpiano.herokuapp.com/
