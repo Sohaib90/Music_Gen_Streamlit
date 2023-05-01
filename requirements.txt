@@ -1,7 +1,7 @@
 --find-links https://download.pytorch.org/whl/torch_stable.html
 torch==1.13.1
 streamlit==0.56.0
-Flask==1.1.1
+Flask==2.3.2
 music21==5.7.2
 boto3==1.12.20
 apex==0.9.10dev
