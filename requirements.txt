@@ -1,5 +1,5 @@
 --find-links https://download.pytorch.org/whl/torch_stable.html
-torch==1.13.1
+torch==2.2.0
 streamlit==1.37.0
 Flask==2.3.2
 music21==5.7.2
