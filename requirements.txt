@@ -1,12 +1,12 @@
 --find-links https://download.pytorch.org/whl/torch_stable.html
 torch==2.2.0
-streamlit==0.56.0
+streamlit==1.37.0
 Flask==2.3.2
 music21==5.7.2
 boto3==1.12.20
 apex==0.9.10dev
 fastprogress==0.2.3
-flask_cors==3.0.9
+flask_cors==5.0.0
 graphviz==0.14
 pebble==4.5.1
 protobuf==3.18.3
