@@ -9,6 +9,6 @@ fastprogress==0.2.3
 flask_cors==6.0.0
 graphviz==0.14
 pebble==4.5.1
-protobuf==3.18.3
+protobuf==4.25.8
 fastai==1.0.60
 numpy
